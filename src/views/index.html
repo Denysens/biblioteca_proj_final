@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+    const base_url = "http://localhost:3000";
+
+    //Função que exibe os livros na interface
+    function renderizar_livros(json){
+        const div = document.createElement('div');
+
+        //Se o json não exitir (indefinido = false) ele retorna pois é uuma negação 
+        if (!json){
+            console.log('Json indefinido')
+            return;
+
+        //Se o json for um array/ lista 
+        }else if(json instanceof Array){
+            json.forEach(livro =>{
+                const div_livro =  document.createElement('div');
+                div_livro.innerText = `${livro.nome}`;
+                div.appendChild(div_livro);
+            });
+        //Se o json for apenas um objeto 
+        }else{
+            const div_livro =  document.createElement('div');
+            div_livro.innerText = `${json.nome}`;
+            div.appendChild(div_livro); 
+        }
+    }
+
+    //Solicitação GET (exiir todos os produtos na interface principal)
+    fetch(`${base_url}/livros`)
+        .then(response => response.json())
+        .then(json => renderizar_livros(json));
+    
+    //Solicitação Get (exibir só um produto)
+    fetch(`${base_url}/livros/1`)
+        .then(response => responde.json())
+        .then(json => renderizar_livros(json));
+    
+    //Solicitação Post (cadastrar livros)
+    function atualizar_emprestimo(){
+        //Guarda os novos valores
+        const titulo = document.getElementById('titulo').value;
+        const autor= document.getElementById('autor').value;
+        const editora = document.getElementById('editora').value;
+        const ano_publicacao = document.getElementById('ano_publicacao').value;
+        const descricao = document.getElementById('descricao').value;
+        const disponivel = document.getElementById('disponivel').value;
+        const categoria= document.getElementById('categoria').value;
+
+        fetch(`${base_url}/livros/${id}`,{
+            method: 'POST',
+            body: JSON.stringify({titulo, autor, editora, ano_publicacao, descricao, disponivel, categoria}),
+            headers:{'Content-Type': 'application/json'}
+        })
+            .then(response => responde.json())
+            .then(json => alert(json.message));
+    }
+
+    //Solicitação Put (atualizar o estado do livro)
+    function atualizar_emprestimo(){
+        //Guarda o valor do novo estado o livro
+        //VER COMO KAROLAYNE IRÁ FAZER ISSO AQUI
+        const disponivel = document.getElementById('disponivel').value;
+        const id = document.getElementById('id').value;
+
+        fetch(`${base_url}/livros/${id}`,{
+            method: 'PUT',
+            body: JSON.stringify({disponivel}),
+            headers:{'Content-Type': 'application/json'}
+        })
+            .then(response => responde.json())
+            .then(json => alert(json.message));
+    }
+
+    //Solicitação Delete (apagar algum livro)
+    function deletar_livro(){
+        const id = document.getElementById('id').value;
+
+        fetch(`${base_url}/livros/${id}`,{
+            method: 'DELETE',
+            headers:{'Content-Type': 'application/json'}
+        })
+            .then(response => responde.json())
+            .then(json => alert(json.message));
+    }
+</script>
+
+</html>

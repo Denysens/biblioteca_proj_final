@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal do Saber - Usuarios cadastrados</title>
+    <link rel="stylesheet" href="/public/style_geral.css">
+    <link rel="stylesheet" href="/public/style_usersCadastrados.css">
+</head>
+
+<body>
+    <!--Barra de navegação-->
+    <nav id="nav">
+        <!--Menu oculto-->
+        <div id="menu_oculto">
+            <a href="javascript:void(0)" class="btn_fechar" onclick="fechar_menu()">Fechar</a>
+            <a href="/home_func">Home</a>
+            <a href="/emprestimos/views">Empréstimos </a>
+            <a href="#">Usuários</a>
+            <a href="/login"></i>Sair</a>
+        </div>
+
+        <section id="principal">
+            <span onclick="abrir_menu()">Abrir</span>
+        </section>
+
+        <!--Titulo-->
+        <h1 id="title">Portal do Saber</h1>
+
+    </nav>
+
+    <!--Corpo com os livros-->
+    <main id="main">
+        <div id="cards-usuarios">
+        </div>
+    </main>
+    
+    <!--Cadastrar livro no rodapé-->
+    <footer id="rodape">
+        <a href="/cadastrar/user" class="cadastrar-usuario">Cadastrar</a>
+    </footer>
+<script src="/public/constantes.js"></script>
+    <script>
+        //const base_url = "http://localhost:3000";
+
+        //Função para exibir todos os livros com base no dados pegos no bd (fetch)
+        function renderizar_usuarios(json) {
+            const cards = document.getElementById('cards-usuarios');
+
+            //Se o json não exitir (indefinido = false) ele retorna pois é uuma negação 
+            if (!json) {
+                console.log('Json indefinido')
+                return;
+
+                //Se o json for um array/ lista 
+            } else if (json instanceof Array) {
+                json.forEach(usuario => {
+                    const card = document.createElement('div');
+                    card.classList.add('card');
+                    card.innerHTML = `
+                    <div id="nome"> Nome: ${usuario.nome} </div>
+                    <div id="telefone"> Telefone ${usuario.telefone}</div>`;
+
+                    cards.appendChild(card);
+                });
+                //Se o json for apenas um objeto 
+            } else {
+                const card = document.createElement('div');
+                card.classList.add('card');
+                card.innerHTML = `
+                <div id="nome"> Nome: ${usuario.nome} </div>
+                <div id="telefone"> Telefone ${usuario.telefone}</div>`;
+
+                cards.appendChild(card);
+            }
+        }
+
+        //Solicitação GET de todos os livros
+        function exibir_usuarios() {
+            fetch(`${base_url}/usuarios`)
+                .then(response => response.json())
+                .then(json => renderizar_usuarios(json))
+                .catch(error => {
+                    console.error("Erro ao buscar Usuários:", error);
+                    alert("Erro ao buscar Usuários.")
+                })
+        }
+
+
+        window.onload = exibir_usuarios();
+    </script>
+    <script type="module">
+        import { abrir_menu, fechar_menu } from '/public/menu.js';
+
+        document.querySelector('#principal span').onclick = abrir_menu;
+        document.querySelector('.btn_fechar').onclick = fechar_menu;
+    </script>
+</body>
+
+</html>

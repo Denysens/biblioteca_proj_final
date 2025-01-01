@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuarios {
+  cpf         Int           @id @unique
+  nome        String
+  data_nasc   DateTime?
+  senha       Int
+  telefone    String?
+  tipo        String        @default("comum")
+  ativo       Boolean       @default(true)
+  emprestimos Emprestimos[]
+
+  @@map("usuarios")
+}
+
+model Emprestimos {
+  usuario_id              Int
+  livro_id                Int
+  data_emprestimo         DateTime  @default(now())
+  data_devolucao_prevista DateTime
+  data_devolucao          DateTime? @updatedAt
+  id_emprestimo           Int       @id @default(autoincrement())
+  ativo                   Boolean   @default(true)
+  Livros                  Livros    @relation(fields: [livro_id], references: [id_livro])
+  Usuarios                Usuarios  @relation(fields: [usuario_id], references: [cpf])
+
+  @@map("emprestimos")
+}
+
+model Livros {
+  id_livro       Int           @id @default(autoincrement())
+  titulo         String
+  autor          String
+  editora        String?
+  ano_publicacao Int?
+  descricao      String?
+  disponivel     Boolean       @default(true)
+  categoria_id   Int
+  ativo          Boolean       @default(true)
+  emprestimos    Emprestimos[]
+  categoria      Categorias    @relation(fields: [categoria_id], references: [id_categoria])
+
+  @@map("livros")
+}
+
+model Categorias {
+  id_categoria Int      @id @default(autoincrement())
+  nome         String
+  livros       Livros[]
+
+  @@map("categorias")
+}

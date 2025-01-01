@@ -1,0 +1,91 @@
+/* ===== NAVBAR ===== */
+
+#title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+    margin: 0 auto;
+}
+/* ===== CARDS DOS USUÁRIOS ===== */
+#main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Container principal */
+#cards-usuarios {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Card de cada usuário */
+#cards-usuarios .card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 15px;
+    width: 250px;
+    height: 150px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#cards-usuarios .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+#nome, #telefone {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #cards-usuarios {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #cards-usuarios div {
+        width: auto;
+    }
+}
+
+@media (max-width: 576px) {
+    #cards-usuarios {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== RODAPÉ ===== */
+#rodape {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #227e8f;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+#rodape .cadastrar-user {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+#rodape .cadastrar-user:hover {
+    background-color: #1a6774;
+}

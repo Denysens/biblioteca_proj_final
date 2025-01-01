@@ -1,0 +1,157 @@
+
+#title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0 auto;
+    color: #227e8f;
+    /* Centraliza o título */
+}
+
+/* ===== MENU OCULTO ===== */
+
+/* ===== BARRA DE PESQUISA ===== */
+form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.input-caixa input {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    flex: 1;
+}
+
+.pesquisa-button {
+    padding: 10px 20px;
+    background-color: #227e8f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pesquisa-button:hover {
+    background-color: #227e8f;
+}
+
+/* ===== CARDS DOS LIVROS ===== */
+#main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Container principal */
+#cards-livros {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 colunas fixas */
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Card do livro com tamanho fixo */
+.livro-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+
+    /* Define tamanho fixo */
+    width: 250px;
+    /* Largura fixa */
+    height: 350px;
+    /* Altura fixa */
+}
+
+/* Efeito de hover nos cards */
+.livro-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Imagem do livro */
+.livro-img {
+    width: 100%;
+    height: 180px;
+    /* Altura fixa para imagem */
+    object-fit: cover;
+    /* Ajusta sem distorção */
+    background-color: #f4f4f4;
+}
+
+/* Informações do livro */
+.livro-info {
+    padding: 15px;
+}
+
+.livro-titulo {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+    white-space: nowrap;
+    /* Impede quebra de linha */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Adiciona "..." para textos longos */
+}
+
+.livro-autor,
+.livro-ano,
+.livro-descricao,
+.livro-disponivel {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+    #cards-livros {
+        grid-template-columns: repeat(4, 1fr);
+        /* Ainda mantém 4 por linha */
+    }
+}
+
+@media (max-width: 992px) {
+    #cards-livros {
+        grid-template-columns: repeat(3, 1fr);
+        /* Ajusta para 3 colunas em telas médias */
+    }
+}
+
+@media (max-width: 768px) {
+    #cards-livros {
+        grid-template-columns: repeat(2, 1fr);
+        /* Ajusta para 2 colunas em telas menores */
+    }
+
+    .livro-card {
+        width: auto;
+        /* Permite ajuste para telas menores */
+    }
+}
+
+@media (max-width: 576px) {
+    #cards-livros {
+        grid-template-columns: repeat(1, 1fr);
+        /* Apenas 1 card por linha em telas muito pequenas */
+    }
+}

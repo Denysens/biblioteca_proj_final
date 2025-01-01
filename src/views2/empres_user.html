@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal do Saber - Meus Empréstimos</title>
+    <link rel="stylesheet" href="/public/style_geral.css">
+    <link rel="stylesheet" href="/public/style_empres_user.css">
+</head>
+
+<body>
+    <nav id="nav">
+        <!--Menu oculto-->
+        <div id="menu_oculto">
+            <a href="javascript:void(0)" class="btn_fechar">Fechar</a>
+            <a href="/home_comum">Home</a>
+            <a href="#">Meus Empréstimos</a>
+            <a href="/login">Sair</a>
+        </div>
+
+        <section id="principal">
+            <span>Abrir</span>
+        </section>
+
+        <!--Titulo-->
+        <h1 id="title">Portal do Saber</h1>
+    </nav>
+
+    <!--Corpo da página-->
+    <main id="main">
+        <div id="cards-emprestimos">
+            <!-- Aqui os cartões dos empréstimos serão adicionados dinamicamente -->
+        </div>
+    </main>
+
+    <script src="/public/constantes.js"></script>
+    <script>
+        function formatar_data(dataString) {
+            if (!dataString) return null; // Retorna null se a data for indefinida ou vazia
+            const data = new Date(dataString);
+            const dia = String(data.getDate()).padStart(2, '0'); // Garante 2 dígitos para o dia
+            const mes = String(data.getMonth() + 1).padStart(2, '0'); // Meses começam de 0, então adiciona +1
+            const ano = data.getFullYear();
+            return `${dia}/${mes}/${ano}`;
+        }
+
+        // Função para exibir todos os empréstimos do usuário
+        function renderizar_emprestimos(json) {
+            const cards = document.getElementById('cards-emprestimos');
+
+            if (!json) {
+                console.log('Json indefinido');
+                return;
+            }
+
+            if (json instanceof Array) {
+                json.forEach(emprestimo => {
+                    const data_devolucao_prevista = formatar_data(emprestimo.data_devolucao_prevista);
+                    const data_devolucao = emprestimo.data_devolucao ? formatar_data(emprestimo.data_devolucao) : "Não devolvido";
+
+                    const card = document.createElement('div');
+                    card.classList.add("card");
+                    card.innerHTML = `
+                <div id="codigo">Código do empréstimo: ${emprestimo.id_emprestimo}</div>
+                <div id="data_dev">Data de devolução prevista: ${data_devolucao_prevista}</div>
+                <div id="data_dev">Data de devolução: ${data_devolucao}</div>
+            `;
+                    cards.appendChild(card);
+                });
+            } else {
+                const data_devolucao_prevista = formatarData(json.data_devolucao_prevista);
+                const data_devolucao = json.data_devolucao ? formatarData(json.data_devolucao) : "Não devolvido";
+
+                const card = document.createElement('div');
+                card.classList.add("card");
+                card.innerHTML = `
+            <div id="codigo">Código: ${json.id_emprestimo}</div>
+            <div id="data_dev">Data de devolução prevista: ${data_devolucao_prevista}</div>
+            <div id="data_dev">Data de devolução: ${data_devolucao}</div>
+        `;
+
+                cards.appendChild(card);
+            }
+        }
+
+        // Solicitação GET dos livros emprestados pelo usuário
+        function exibir_emprestimos() {
+            fetch(`${base_url}/emprestimos/usuario`)
+                .then(response => response.json())
+                .then(json => renderizar_emprestimos(json))
+                .catch(error => {
+                    console.error("Erro ao buscar Emprestimos:", error);
+                    alert("Erro ao buscar Emprestimos.");
+                });
+        }
+
+        window.onload = exibir_emprestimos;
+    </script>
+
+    <script type="module">
+        import { abrir_menu, fechar_menu } from '/public/menu.js';
+
+        document.querySelector('#principal span').onclick = abrir_menu;
+        document.querySelector('.btn_fechar').onclick = fechar_menu;
+    </script>
+</body>
+
+</html>

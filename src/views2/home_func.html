@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal do Saber - Home Funcionário</title>
+    <link rel="stylesheet" href="public/style_geral.css">
+    <link rel="stylesheet" href="public/style_userFunc.css">
+</head>
+
+<body>
+    <!--Barra de navegação-->
+    <nav id="nav">
+        <!--Menu oculto-->
+        <div id="menu_oculto">
+            <a href="#">Home</a>
+            <a href="emprestimos/views">Empréstimos </a>
+            <a href="usuarios/views">Usuários</a>
+            <a href="login"></i>Sair</a>
+            <a href="javascript:void(0)" class="btn_fechar">Fechar</a>
+        </div>
+
+        <section id="principal">
+            <span>Abrir</span>
+        </section>
+
+        <!--Titulo-->
+        <h1 id="title">Portal do Saber</h1>
+
+        <!--Barra de Pesquisa-->
+        <form>
+            <div class="input-caixa">
+                <input type="text" name="titulo" id="pesquisa" placeholder="Digite o livro procurado">
+            </div>
+            <button class="pesquisa-button" onclick="pesquisar_livro()">Buscar</button>
+        </form>
+    </nav>
+
+    <!--Corpo com os livros-->
+    <main id="main">
+        <div id="cards-livros">
+        </div>
+    </main>
+
+    <!--Cadastrar livro no rodapé-->
+    <footer id="rodape">
+        <a href="cadastrar/livros" class="cadastrar-livro">Cadastrar</a>
+    </footer>
+    <script src="public/constantes.js"></script>
+    <script>        
+        //Função para exibir todos os livros com base nos dados pegos no banco (fetch)
+        function renderizar_livros(json) {
+            const cards = document.getElementById('cards-livros');
+
+            // Verifica se o json existe
+            if (!json) {
+                console.log('Json indefinido');
+                return;
+            }
+
+            // Caso o json seja uma lista
+            if (json instanceof Array) {
+                json.forEach(livro => {
+                    const card = document.createElement('div');
+                    card.classList.add('livro-card'); // Adiciona a classe para os cards
+
+                    card.innerHTML = `
+                        <div class="livro-img">
+                            <img src="${livro.imagem || 'public/default-book.jpg'}" alt="${livro.titulo} ">
+                        </div>
+                        <div class="livro-info">
+                            <div class="livro-titulo">Título: ${livro.titulo}</div>
+                            <div class="livro-autor">Autor: ${livro.autor}</div>
+                            <div class="livro-ano">Ano de publicação: ${livro.ano_publicacao}</div>
+                            <div class="livro-descricao">Descrição: ${livro.descricao}</div>
+                            <div id="botões">
+                                <button onclick="emprestar_livro(${livro.id_livro})">Emprestar</button>
+                                <button onclick="devolver_livro(${livro.id_livro})">Devolver</button>
+                            </div>
+                        </div>
+                    `;
+
+                    cards.appendChild(card);
+                });
+            }
+        }
+
+        // Função para emprestar um livro
+        function emprestar_livro(id_livro) {
+            const usuario_id = Number(prompt("Digite o CPF do usuário"));
+            const data_devolucao_prevista = new Date();
+            data_devolucao_prevista.setDate(data_devolucao_prevista.getDate() + 15); // Devolução em 15 dias
+
+            
+            fetch(`${base_url}/emprestimos`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json", },
+                body: JSON.stringify({usuario_id, livro_id, data_devolucao_prevista
+                }),
+            })
+                .then((response) => response.json())
+                .then(json => {
+                    if (json.message) {
+                        alert(json.message);
+                    } else {
+                        alert("Erro ao realizar o empréstimo.");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Erro ao realizar empréstimo:", error);
+                    alert("Erro ao conectar com o servidor.");
+                });
+        }
+
+        //Função para devolver livro
+        function devolver_livro(id_livro) {
+            // Confirmação para o usuário
+            if (!confirm('Deseja devolver este livro?')) return;
+
+            // Faz uma requisição PUT ao servidor para devolver o livro
+            fetch(`${base_url}/emprestimos`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({id_livro})
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro ao devolver o livro');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert('Livro devolvido com sucesso!');
+                    location.reload(); // Recarrega a página para atualizar a lista
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    alert('Não foi possível devolver o livro.');
+                });
+        }
+
+        //Solicitação GET de todos os livros
+        function exibir_livros() {
+            fetch(`${base_url}/livros`)
+                .then(response => response.json())
+                .then(json => renderizar_livros(json))
+                .catch(error => {
+                    console.error("Erro ao buscar Livros:", error);
+                    alert("Erro ao buscar Livros.")
+                })
+        }
+        
+        function pesquisar_livro() {
+            event.preventDefault();
+            const titulo = document.getElementById('pesquisa').value;
+            fetch(`${base_url}/livros/${titulo}`)
+                .then(response => response.json())
+                .then(json => renderizar_livros(json))
+                .catch(error => {
+                    console.error("Erro ao buscar Livro:", error);
+                    alert("Erro ao buscar Livro.")
+                })
+        }
+       
+        window.onload = exibir_livros();
+    </script>
+
+    <script type="module">
+        import { abrir_menu, fechar_menu } from './public/menu.js';
+
+        document.querySelector('#principal span').onclick = abrir_menu;
+        document.querySelector('.btn_fechar').onclick = fechar_menu;
+    </script>
+
+</body>
+
+</html>

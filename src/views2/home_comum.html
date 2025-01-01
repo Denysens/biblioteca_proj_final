@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal do Saber - Home User</title>
+    <link rel="stylesheet" href="public/style_geral.css">
+    <link rel="stylesheet" href="public/style_userComum.css">
+</head>
+
+<body>
+    <!--Barra de navegação-->
+    <nav id="nav">
+        <!--Menu oculto-->
+        <div id="menu_oculto">
+            <a href="home_comum">Home</a>
+            <a href="empres_user/views">Meus Empréstimos</a>
+            <a href="login">Sair</a>
+            <a href="javascript:void(0)" class="btn_fechar">Fechar</a>
+        </div>
+
+        <section id="principal">
+            <span>Abrir</span>
+        </section>
+
+        <!--Titulo-->
+        <h1 id="title">Portal do Saber</h1>
+
+        <!--Barra de Pesquisa-->
+        <form >
+            <div class="input-caixa">
+                <input type="text" name="titulo" id="titulo" placeholder="Digite o livro procurado" >
+            </div>
+            <button class="pesquisa-button" onclick="pesquisar_livro()"> Buscar</button>
+        </form>
+    </nav>
+
+    <!--Corpo com os livros-->
+    <main id="main">
+        <div id="cards-livros">
+        </div>
+    </main>
+<script src="/public/constantes.js"></script>
+    <script>
+        //const base_url = "http://localhost:3000";
+        
+        //Função para exibir todos os livros com base no dados pegos no bd (fetch)
+        function renderizar_livros(json) {
+            console.log(json)
+            const cards = document.getElementById('cards-livros');
+            cards.innerHTML = ""; // Limpa o conteúdo anterior
+
+            if (!json || json.length === 0) {
+                cards.innerHTML = "<p>Nenhum livro encontrado.</p>";
+                return;
+            }
+
+            if (json instanceof Array) {
+                json.forEach(livro => {
+                    const card = document.createElement('div');
+                    card.classList.add('livro-card'); // Adiciona a classe para estilização
+                    const disponibilidade = livro.disponivel.textContent;
+                    card.innerHTML = `
+                <img src="${livro.imagem || 'public/default-book.jpg'}" alt="Capa do livro" class="livro-img">
+                <div class="livro-info">
+                    <h3 class="livro-titulo">${livro.titulo}</h3>
+                    <p class="livro-autor"><strong>Autor:</strong> ${livro.autor || 'Desconhecido'}</p>
+                    <p class="livro-ano"><strong>Ano:</strong> ${livro.ano_publicacao || 'N/A'}</p>
+                    <p class="livro-descricao"><strong>Descricao:</strong> ${livro.descricao || 'N/A'}</p>
+                    <p class="livro-disponivel"><strong>Disponível:</strong:${disponibilidade}</p>
+                </div>
+            `;
+                    cards.appendChild(card);
+                });
+            } else {
+                const card = document.createElement('div');
+                card.classList.add('livro-card'); // Adiciona a classe para estilização
+                card.innerHTML = `
+                <img src="${json.imagem || 'public/default-book.jpg'}" alt="Capa do livro" class="livro-img">
+                <div class="livro-info">
+                    <h3 class="livro-titulo">${json.titulo}</h3>
+                    <p class="livro-autor"><strong>Autor:</strong> ${json.autor || 'Desconhecido'}</p>
+                    <p class="livro-ano"><strong>Ano:</strong> ${json.ano_publicacao || 'N/A'}</p>
+                     <p class="livro-descricao"><strong>Descricao:</strong> ${livro.descricao || 'N/A'}</p>
+                </div>
+            `;
+                cards.appendChild(card);
+            }
+        }
+
+
+        //Solicitação GET de todos os livros
+        function exibir_livros() {
+            fetch(`${base_url}/livros`)
+                .then(response => response.json())
+                .then(json => renderizar_livros(json))
+                .catch(error => {
+                    console.error("Erro ao buscar Livros:", error);
+                    alert("Erro ao buscar Livros.")
+                })
+        }
+
+        //Solicitação GET de livros por nome 
+        function pesquisar_livro() {
+            event.preventDefault();
+            const titulo = document.getElementById('titulo').value;
+            fetch(`${base_url}/livros/${titulo}`)
+                .then(response => response.json())
+                .then(json => renderizar_livros(json))
+                .catch(error => {
+                    console.error("Erro ao buscar Livro:", error);
+                    alert("Erro ao buscar Livro.")
+                })
+        }
+
+        //VERIFICAR PORQUE OS DADOS ESTÃO SENDO EXIBIDOS EM JSON
+
+        window.onload = exibir_livros();
+    </script>
+
+    <script type="module">
+        import { abrir_menu, fechar_menu } from './public/menu.js';
+
+        document.querySelector('#principal span').onclick = abrir_menu;
+        document.querySelector('.btn_fechar').onclick = fechar_menu;
+    </script>
+</body>
+
+</html>
