@@ -2,14 +2,28 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-class Categoria_Model {
-    //Consulta o BD e retornar todos os categorias 
+class categoria_model {
+
+    //Consulta o BD e retorna todos os categorias 
     async buscar() {
         const categorias = await prisma.categorias.findMany();
         return categorias;
     }
 
-    //Pesquisa o categoria por id
+    //Pesquisa a categoria pelo nome 
+    async buscar_por_nome(nome) {
+        const categorias = await prisma.categorias.findMany({
+            where: {
+                nome: {
+                    contains: String(nome),
+                    mode: "insensitive" //não deferencia maiúscula e minúscula
+                }
+            },
+        });
+        return categorias;
+    }
+
+    //Pesquisa a categoria por id
     async buscar_por_id(id) {
         const categoria = await prisma.categorias.findUnique({
             where: {
@@ -19,20 +33,7 @@ class Categoria_Model {
         return categoria;
     }
 
-    //Pesquisa o categoria pelo nome 
-    async buscar_por_nome(nome) {
-        const categoria = await prisma.categorias.findMany({
-            where: {
-                nome: {
-                    contains: String(nome),
-                    mode: "insensitive" //não deferencia maiúscula e minúscula
-                }
-            },
-        })
-        return categoria;
-    }
-
-    //Insere um novo categoria
+    //Insere uma nova categoria
     async adicionar(categoria) {
         const nova_categoria = await prisma.categorias.create({
             data: {
@@ -43,4 +44,4 @@ class Categoria_Model {
     }
 }
 
-export default new Categoria_Model();
+export default new categoria_model();

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal do Saber - Home User</title>
+    <link rel="stylesheet" href="public/style_geral.css">
+    <link rel="stylesheet" href="public/style_userComum.css">
+</head>
+
+<body>
+    <!--Barra de navegação-->
+    <nav id="nav-bar">
+        <!--Menu oculto-->
+        <div id="menu_oculto" aria-hidden="true">
+            <a href="/home_comum">Home</a>
+            <a href="/emprestimos_usuario/views">Meus empréstimos </a>
+            <a href="/login">Sair</a>
+            <button id="btn_fechar" aria-label="Fechar menu" onclick="fechar_menu()">Fechar</button>
+        </div>
+
+        <section id="principal">
+            <button id="btn_abrir" aria-label="Abrir menu" onclick="abrir_menu()">Abrir</button>
+        </section>
+
+        <!--Titulo-->
+        <h1 id="title">Portal do Saber</h1>
+
+        <!--Barra de Pesquisa-->
+        <form>
+            <div class="input-caixa">
+                <input type="text" name="titulo" id="titulo" placeholder="Digite o livro procurado">
+            </div>
+            <button class="pesquisa-button" onclick="pesquisar_livro(event)">Buscar</button>
+        </form>
+
+        <!--Parte de selecionar a categoria-->
+        <form>
+            <div class="input-caixa">
+                <label for="categoria">Categoria: </label>
+                <select id="categoria">
+                    <!-- As opções serão carregadas aqui dinamicamente -->
+                </select>
+            </div>
+        </form>
+    </nav>
+
+    <!--Corpo com os livros-->
+    <main id="container">
+        <div id="cards-livros"></div>
+    </main>
+
+    <footer id="rodape">
+        <hr>
+    </footer>
+
+    <script src="/public/js/menu.js"></script>
+    <script src="/public/js/constantes.js"></script>
+    <script src="/public/js/scripts.js"></script>
+
+    <script>
+        const tipo = "comum";
+        sessionStorage.setItem("tipo", tipo)
+        window.onload = function () {
+            exibir_livros(); //Carrega os livros ao iniciar
+            exibir_categorias(); // Carrega as categorias ao iniciar
+            configurar_filtro();
+        };
+    </script>
+</body>
+
+</html>

@@ -49,7 +49,7 @@ form {
 }
 
 /* Container principal */
-#cards-livros {
+#livros-card {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     /* 4 colunas fixas */

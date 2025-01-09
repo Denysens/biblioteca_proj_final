@@ -4,18 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal do Saber - Empréstimos</title>
+    <title>Portal do Saber - Meus Empréstimos</title>
     <link rel="stylesheet" href="/public/style_geral.css">
-    <link rel="stylesheet" href="/public/style_emprestimos.css">
+    <link rel="stylesheet" href="/public/style_empres_user.css">
 </head>
 
 <body>
-    <nav id="nav">
+    <nav id="nav-bar">
         <!--Menu oculto-->
         <div id="menu_oculto" aria-hidden="true">
-            <a href="/home_func">Home</a>
-            <a href="/emprestimos/views">Empréstimos </a>
-            <a href="/usuarios/views">Usuários</a>
+            <a href="/home_comum">Home</a>
+            <a href="#">Meus empréstimos </a>
             <a href="/login">Sair</a>
             <button id="btn_fechar" aria-label="Fechar menu" onclick="fechar_menu()">Fechar</button>
         </div>
@@ -28,18 +27,23 @@
         <h1 id="title">Portal do Saber</h1>
     </nav>
 
+    <!--Corpo da página-->
     <main id="container">
-        <div id="cards-emprestimos">
-            <!--Lista dos emprestimos-->
-        </div>
+        <div id="cards-emprestimos"></div>
     </main>
+
+    <footer id="rodape">
+        <hr>
+    </footer>
 
     <script src="/public/js/menu.js"></script>
     <script src="/public/js/constantes.js"></script>
     <script src="/public/js/scripts.js"></script>
 
     <script>
-        window.onload = exibir_emprestimos();
+        window.onload = function () {
+            exibir_emprestimos_usuario();
+        };
     </script>
 </body>
 

@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Usuarios {
-  cpf         Int           @id @unique
+  cpf         String           @id @unique
   nome        String
   data_nasc   DateTime?
   senha       Int
@@ -21,11 +21,11 @@ model Usuarios {
 }
 
 model Emprestimos {
-  usuario_id              Int
+  usuario_id              String
   livro_id                Int
   data_emprestimo         DateTime  @default(now())
   data_devolucao_prevista DateTime
-  data_devolucao          DateTime? @updatedAt
+  data_devolucao          DateTime?
   id_emprestimo           Int       @id @default(autoincrement())
   ativo                   Boolean   @default(true)
   Livros                  Livros    @relation(fields: [livro_id], references: [id_livro])

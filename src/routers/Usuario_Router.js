@@ -1,45 +1,51 @@
 import { Router } from "express";
-import Usuario_Controller from "../controller/Usuario_Controller.js";
-import { auth } from "../middlewares/auth.js";
-import { verificar_login } from "../middlewares/type.js";
+import usuario_controller from "../controller/usuario_controller.js";
+import { auth } from "../middleWares/auth.js";
+import { verificar_login } from "../middleWares/type.js";
 
 const usuario_router = Router();
 
-//Rotas dos Usuários
+//Direciona para a página de login 
+usuario_router.get('/login', usuario_controller.login);
 
-usuario_router.get('/login', Usuario_Controller.login);
-usuario_router.post('/login', Usuario_Controller.autenticar_login);
+//Envia os dados de login e posterior autenticação
+usuario_router.post('/login', usuario_controller.autenticar_login);
 
-usuario_router.get('/home_comum', auth, Usuario_Controller.home_comum);
-usuario_router.get('/home_func', verificar_login, Usuario_Controller.home_func);
+//Direciona para a página de usuário comum (pessoas comuns com cadastro)
+usuario_router.get('/home_comum', auth, usuario_controller.home_comum); 
 
+//Direciona para a página de usuário funcionário (bibliotecário)
+usuario_router.get('/home_func', verificar_login, usuario_controller.home_func); 
 
 //Direciona para a página que exibe todos os usuários cadastrados
-usuario_router.get('/usuarios/views', Usuario_Controller.usuarios_cadastrados);
+usuario_router.get('/usuarios/views', verificar_login, usuario_controller.usuarios_cadastrados);
+
 //Exibe os usuários ativos e cadastrados
-usuario_router.get('/usuarios', verificar_login, Usuario_Controller.exibir_usuarios_ativos); 
+usuario_router.get('/usuarios', verificar_login, usuario_controller.exibir_usuarios_ativos); 
 
-
-usuario_router.get('/usuarios/cpf',verificar_login, Usuario_Controller.exibir_por_cpf); 
-
-//usuario_router.get('/usuarios/nome', verificar_login, Usuario_Controller.exibir_por_nome); 
+//Exibe o usuário pelo cpf pesquisado
+usuario_router.post('/usuarios/cpf', verificar_login, usuario_controller.exibir_por_cpf); 
 
 //Direciona para página de cadastrar usuários
-usuario_router.get('/cadastrar/user', verificar_login, Usuario_Controller.usuario_cadastrar);
+usuario_router.get('/cadastrar_usuarios/views', verificar_login, usuario_controller.usuario_cadastrar); 
+
 //Cadastra os usuários
-usuario_router.post('/usuarios', verificar_login, Usuario_Controller.cadastrar_usuario);
+usuario_router.post('/cadastrar_usuarios', verificar_login, usuario_controller.cadastrar_usuario); 
 
+//Atualizar alguns dados do usuário
+usuario_router.put('/usuarios', auth, usuario_controller.atualizar_usuario); 
 
-usuario_router.put('/usuarios',auth, Usuario_Controller.atualizar_usuario);
+//Deletar um usuário
+usuario_router.delete('/usuarios', verificar_login, usuario_controller.deletar_usuario); 
 
-usuario_router.delete('/usuarios', verificar_login, Usuario_Controller.deletar_usuario); 
+//usuario_router.get('/usuarios/nome', verificar_login, usuario_controller.exibir_por_nome); 
 
 export default usuario_router;
 
 /*sudo su
 dhclient
-ip a
-put  negoicio
+ip add
+put  negocio
 coloca o ip
 filelizza
 npm install no servidor 

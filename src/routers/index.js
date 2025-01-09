@@ -1,8 +1,8 @@
 import { Router } from "express";
-import categoria_router from "./Categoria_Router.js";
-import emprestimo_router from "./Emprestimo_Router.js";
-import livro_router from "./Livro_Router.js";
-import usuario_router from "./Usuario_Router.js";
+import categoria_router from "./categoria_router.js";
+import emprestimo_router from "./emprestimo_router.js";
+import livro_router from "./livro_router.js";
+import usuario_router from "./usuario_router.js";
 
 const router = Router();
 

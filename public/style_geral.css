@@ -27,7 +27,8 @@ body {
     position: relative;
 }
 
-#principal span {
+#principal {
+    margin-left: 0;
     font-size: 16px;
     cursor: pointer;
     padding: 5px 10px;
@@ -37,11 +38,6 @@ body {
     position: relative;
     z-index: 1;
     /* Menor prioridade */
-}
-
-#principal span:hover {
-    background-color: #227e8f;
-    color: #fff;
 }
 
 /* ===== MENU OCULTO ===== */
@@ -58,7 +54,8 @@ body {
     padding-top: 60px;
 }
 
-#menu_oculto a {
+#menu_oculto a,
+#menu_oculto #btn_fechar{
     color: white;
     transition: color 0.3s ease;
     padding: 8px 8px 8px 32px;
@@ -66,21 +63,31 @@ body {
     font-size: 25px;
     display: block;
 }
-
-/*muda a cor ao passar o mouse em cima*/
-#menu_oculto a:hover{
-    color: #fff;
+#menu_oculto a:hover,
+#menu_oculto #btn_fechar:hover{
+    color: rgb(37, 140, 209);
 }
 
-/*para  o menu se ajudar com o tamanho a tela, responsividade*/
-@media screen and(max-height: 450px){
-    .menu_oculto{padding-top: 15px;}
-    .menu_oculto a{font-size: 18;}
-}
-
-.btn_fechar {
-    font-weight: bold;
+/* Botões */
+button {
+    background: none;
+    border: none;
     cursor: pointer;
+    font-size: 16px;
+    color:white;
+}
+
+
+
+/*para o menu se ajudar com o tamanho a tela, responsividade*/
+@media screen and (max-height: 450px) {
+    .menu_oculto {
+        padding-top: 15px;
+    }
+
+    .menu_oculto a {
+        font-size: 18px;
+    }
 }
 
 /* ===== RESPONSIVIDADE ===== */

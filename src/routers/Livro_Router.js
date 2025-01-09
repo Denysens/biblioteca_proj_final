@@ -1,24 +1,30 @@
 import { Router } from "express";
-import Livro_Controller from "../controller/Livro_Controller.js";
-import { verificar_login } from "../middlewares/type.js"
+import livro_controller from "../controller/livro_controller.js";
+import { verificar_login } from "../middleWares/type.js"
+
 const livro_router = Router();
 
 //Rotas dos livros
 
-livro_router.get('/livros', Livro_Controller.exibir_livros_ativos);
-livro_router.get('/livros/:titulo', Livro_Controller.exibir_por_titulo);
+livro_router.get('/livros', livro_controller.exibir_livros_ativos);
+livro_router.get('/livros_categoria', livro_controller.exibir_por_categoria);
+livro_router.get('/livros/:titulo', livro_controller.exibir_por_titulo);
 
-//Direciona para a página de cadastrar livros
-livro_router.get('/cadastrar/livros', verificar_login, Livro_Controller.cadastrar_livro);
-//Cadastra os livros
-livro_router.post('/livros',verificar_login, Livro_Controller.cadastrar); 
 
-livro_router.put('/livros/:id',verificar_login, Livro_Controller.atualizar_emprestimo);
-//livro_router.delete('/livros/:id',verificar_login, Livro_Controller.deletar);
 
-//livro_router.get('/livros/categoria', Livro_Controller.exibir_por_categoria);
+livro_router.get('/livros/:id_livro', livro_controller.exibir_por_id);
 
-//livro_router.get('/livros/:id', Livro_Controller.exibir_por_id);
+//Direcionar para a página de cadastrar livros
+livro_router.get('/cadastrar_livros/views', verificar_login, livro_controller.cadastrar_livro); //verificar_login,
+
+livro_router.post('/cadastrar_livros', verificar_login, livro_controller.cadastrar); //verificar_login
+
+livro_router.delete('/livros', verificar_login, livro_controller.deletar); //verificar_login,
+
+//VERIFICAR SE IRÁ USAR 
+livro_router.put('/livros/emprestar/:id_livro', verificar_login, livro_controller.emprestar); //verificar_login
+
+livro_router.put('/livros/devolver/:id_livro', verificar_login, livro_controller.devolver); //verificar_login
 
 /*
 router.get('/img', (req, res)=>{

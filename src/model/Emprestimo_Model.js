@@ -1,8 +1,9 @@
 import { PrismaClient } from "@prisma/client";
+import { parseISO } from 'date-fns';
 
 const prisma = new PrismaClient();
 
-class Emprestimo_Model {
+class emprestimo_model {
 
     //Pesquisa todos os emprestimos
     async buscar_emprestimos() {
@@ -15,20 +16,10 @@ class Emprestimo_Model {
     }
 
     //Pesquisa os empréstimos de um usuario específico
-    async buscar_por_id_livro(emprestimo){
-        const emprestimo_novo = await prisma.emprestimos.findFirst({
-            where: {
-                livro_id: emprestimo.id_livro,
-            }})
-        return emprestimo_novo;
-    }
-
-    //Pesquisa os empréstimos de um user específico
-    async buscar_por_id_user(emprestimo) {
+    async buscar_por_id_user(id_usuario) {
         const emprestimos = await prisma.emprestimos.findMany({
             where: {
-                usuario_id: Number(emprestimo.id_usuario),
-                ativo: emprestimo.ativo
+                usuario_id: id_usuario,
             },
         });
         return emprestimos
@@ -36,42 +27,35 @@ class Emprestimo_Model {
 
     //Adicionar um empréstimo
     async adicionar(emprestimo) {
-        try {
-            // Verificar se o livro está disponível
-            const livro = await prisma.livros.findUnique({
-                where: { id_livro: emprestimo.livro_id },
-            });
+        // Cadastrar o empréstimo
+        const novo_emprestimo = await prisma.emprestimos.create({
+            data: {
+                usuario_id: emprestimo.usuario_id,
+                livro_id: emprestimo.livro_id,
+                data_devolucao_prevista: parseISO(emprestimo.data_devolucao_prevista)
+            },
+        });
+        return novo_emprestimo;
+    }
 
-            if (!livro || !livro.disponivel) {
-                throw new Error('Livro indisponível para empréstimo.');
+    //Pesquisa os empréstimos de um livro específico
+    async buscar_por_id_livro(id_livro) {
+        const emprestimo = await prisma.emprestimos.findFirst({
+            where: {
+                AND: [
+                    { livro_id: id_livro },
+                    { ativo: true }
+                ]
             }
-
-            // Cadastrar o empréstimo
-            const novo_emprestimo = await prisma.emprestimos.create({
-                data: {
-                    usuario_id: emprestimo.usuario_id,
-                    livro_id: emprestimo.livro_id,
-                    data_devolucao_prevista: emprestimo.data_devolucao_prevista
-                },
-            });
-
-            // Atualizar a disponibilidade do livro para false
-            await prisma.livros.update({
-                where: { id_livro: emprestimo.livro_id },
-                data: { disponivel: false },
-            });
-
-            return emprestimo;
-        } catch (error) {
-            throw error;
-        }
+        })
+        return emprestimo;
     }
 
     //Editar o emmpéstimo /Realizar a devolução do livro
-    async atualizar_devolucao(emprestimo) {
+    async atualizar_devolucao(id_emprestimo) {
         const emprestimo_atualizado = await prisma.emprestimos.update({
             where: {
-                id_emprestimo: Number(emprestimo.id_emprestimo)
+                id_emprestimo: Number(id_emprestimo)
             },
             data: {
                 data_devolucao: new Date(),
@@ -82,4 +66,4 @@ class Emprestimo_Model {
     }
 }
 
-export default new Emprestimo_Model();
+export default new emprestimo_model();
