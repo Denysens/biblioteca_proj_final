@@ -1,0 +1,230 @@
+#title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 auto;
+    color: #227e8f;
+}
+
+/* ===== MENU OCULTO ===== */
+/*estiliza o tamanho, cor e posição*/
+
+/* ===== BARRA DE PESQUISA ===== */
+form {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.input-caixa input {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 5px;
+    flex: 1;
+}
+
+.pesquisa-button {
+    padding: 10px 20px;
+    background-color: #227e8f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pesquisa-button:hover {
+    background-color: #227e8f;
+}
+
+/* ===== CARDS DOS LIVROS ===== */
+#main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+#cards-livros {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colunas fixas */
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+#cards-livros div {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#cards-livros div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#cards-livros button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color:  #197dff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#cards-livros button:hover {
+    background-color: #197dff;
+}
+
+
+/* Estilos para os botões "Emprestar" e "Devolver" */
+#botões {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+#botões button {
+    padding: 8px 16px;
+    background-color: #197dff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#botões button:hover {
+    background-color: #197dff;
+}
+
+/* Estilo do botão de "Cadastrar" no rodapé */
+#rodape {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #227e8f;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+#rodape .cadastrar-livro {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+#rodape .cadastrar-livro:hover {
+    background-color: #1a6774;
+}
+
+/* ===== CARDS DOS LIVROS ===== */
+#cards-livros {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Padrão: 3 colunas em telas grandes */
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto; /* Centraliza os cards */
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 1024px) {
+    #cards-livros {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 colunas em telas médias */
+    }
+}
+
+@media (max-width: 768px) {
+    #cards-livros {
+        grid-template-columns: repeat(1, 1fr);
+        /* 1 colunas em telas pequenas */
+    }
+
+    #menu_oculto {
+        width: 180px; /* Menu menor em telas pequenas */
+    }
+
+    form {
+        flex-direction: column; /* Organiza o formulário em coluna */
+        gap: 15px; /* Espaçamento entre os campos */
+    }
+
+    #title {
+        margin: 10px 0; /* Reduz margem do título */
+        text-align: center; /* Centraliza título */
+    }
+}
+
+@media (max-width: 480px) {
+    #cards-livros {
+        grid-template-columns: 1fr;
+        /* 1 coluna em dispositivos muito pequenos */
+        gap: 15px;
+    }
+
+    #menu_oculto {
+        width: 150px; /* Reduz largura do menu oculto */
+    }
+
+    form {
+        gap: 10px; /* Reduz espaçamento no formulário */
+    }
+
+    #title {
+        font-size: 20px; /* Reduz tamanho da fonte */
+    }
+}
+
+#cards-livros div {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#cards-livros div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#titulo {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+#botões {
+    margin-top: auto;
+}
+
+#botões button {
+    padding: 10px 15px;
+    background-color: #227e8f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+#botões button:hover {
+    background-color:#227e8f;
+}

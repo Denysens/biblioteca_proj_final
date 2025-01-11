@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal do Saber - Meus Empréstimos</title>
+    <link rel="stylesheet" href="/public/style_geral.css">
+    <link rel="stylesheet" href="/public/style_empres_user.css">
+    <link rel="stylesheet" href="/public/style_empres.css">
+    <link rel="stylesheet" href="/public/style_nav.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">        
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="d-flex align-items-center">
+                <!--Menu oculto-->
+                <div id="menu_oculto" aria-hidden="true">
+                    <a href="/home_comum">Home</a>
+                    <a href="/emprestimos_usuario/views">Meus empréstimos </a>
+                    <a href="/login">Sair</a>
+                    <button id="btn_fechar" aria-label="Fechar menu" onclick="fechar_menu()">Fechar</button>
+                </div>
+
+                <section id="principal">
+                    <button id="btn_abrir" aria-label="Abrir menu" onclick="abrir_menu()">Abrir</button>
+                </section>
+                <a class="navbar-brand" href="#">Portal do Saber</a>
+            </div> 
+          </div>
+        </div>
+    </nav>
+
+    <!--Corpo da página-->
+    <main id="container">
+        <div id="cards-emprestimos"></div>
+    </main>
+
+    <footer id="rodape">
+        <hr>
+    </footer>
+
+    <script src="/public/js/menu.js"></script>
+    <script src="/public/js/constantes.js"></script>
+    <script src="/public/js/scripts.js"></script>
+
+    <script>
+        window.onload = function () {
+            exibir_emprestimos_usuario();
+        };
+    </script>
+</body>
+
+</html>

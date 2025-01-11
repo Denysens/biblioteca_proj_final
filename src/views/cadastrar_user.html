@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal do Saber - Cadastrar Usuário</title>
+    <link rel="stylesheet" href="/public/style_geral.css">
+    <link rel="stylesheet" href="/public/style_add_livro.css">
+    <link rel="stylesheet" href="/public/style_nav.css">
+</head>
+
+<body>
+    <!--Barra de navegação-->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">        
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="d-flex align-items-center">
+                <!--Menu oculto-->
+                <div id="menu_oculto" aria-hidden="true">
+                    <a href="/home_func">Home</a>
+                    <a href="/emprestimos/views">Empréstimos </a>
+                    <a href="/usuarios/views">Usuários</a>
+                    <a href="/login">Sair</a>
+                    <button id="btn_fechar" aria-label="Fechar menu" onclick="fechar_menu()">Fechar</button>
+                </div>
+
+                <section id="principal">
+                    <button id="btn_abrir" aria-label="Abrir menu" onclick="abrir_menu()">Abrir</button>
+                </section>
+                <a class="navbar-brand" href="#">Portal do Saber</a>
+            </div> 
+          </div>
+        </div>
+    </nav>
+
+    <main id="container">
+        <form class="login-form">
+            <h1 class="login-titulo">Portal do Saber</h1>
+            <h3 class="login-subtitulo">Cadastrar usuario</h3>
+            <div class="input-caixa">
+                <input type="text" name="cpf" id='cpf' placeholder="CPF">
+            </div>
+            <div class="input-caixa">
+                <input type="text" name="nome" id='nome' placeholder="Nome">
+            </div>
+            <div class="input-caixa">
+                <input type="date" name="data" id="data" placeholder="data">
+            </div>
+            <div class="input-caixa">
+                <input type="tel" name="telefone" id="telefone" placeholder="telefone">
+            </div>
+            <div class="input-caixa">
+                <input type="number" name="senha" id='senha' placeholder="Senha">
+            </div>
+            <div class="input-caixa">
+                <label for="tipo">Tipo: </label>
+                <select id="tipo" name="tipo">
+                    <option value='comum'>Comum</option>
+                    <option value='func'>Funcionário/ Bibliotecário</option>
+                </select>
+            </div>
+            <button class="login-button" onclick="cadastrar_usuario(event)">Cadastrar</button>
+        </form>
+    </main>
+
+    <script src="/public/js/menu.js"></script>
+    <script src="/public/js/constantes.js"></script>
+    <script src="/public/js/scripts.js"></script>
+</body>
+
+</html>

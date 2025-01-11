@@ -1,0 +1,98 @@
+/* ===== FORMULÁRIO ===== */
+#container {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    display: block;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    height: 100vh;
+}
+
+.login-form {
+    width: 100%;
+    max-width: 400px; /* Limita a largura do formulário */
+    margin: 0 auto; /* Centraliza o formulário horizontalmente */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    position: absolute;
+    top: 50%; /* Centraliza o formulário verticalmente */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Ajusta a posição para centralizar */
+}
+
+.login-titulo {
+    font-size: 28px;
+    color: #227e8f;
+    margin-bottom: 10px;
+}
+
+.login-subtitulo {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.input-caixa {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-caixa input,
+.input-caixa select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.input-caixa input:focus,
+.input-caixa select:focus {
+    border-color: #1976D2;
+}
+
+.input-caixa label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #555;
+}
+
+.login-button {
+    background-color: #227e8f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.login-button:hover {
+    background-color: #227e8f;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+
+    #container {
+        margin-top: 20px;
+        padding: 15px;
+    }
+
+    .login-titulo {
+        font-size: 24px;
+    }
+}

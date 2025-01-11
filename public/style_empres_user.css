@@ -1,0 +1,62 @@
+
+#title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #227e8f;
+    margin: 0 auto;
+}
+
+/* ===== CARDS DOS EMPRÉSTIMOS ===== */
+#main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Container principal */
+#cards-emprestimos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Card de cada empréstimo */
+#cards-emprestimos .card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+    padding: 15px;
+    width: 250px;
+    height: 150px;
+    transition: transform 0.3s ease;
+}
+
+#cards-emprestimos .card:hover {
+    transform: translateY(-5px);
+}
+
+#codigo,
+#data_dev {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #cards-livros {
+        grid-template-columns: 1fr;
+    }
+
+    #cards-livros div {
+        width: auto;
+    }
+}

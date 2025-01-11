@@ -1,0 +1,42 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.navbar-brand {
+    flex-grow: 1; /* Faz o título ocupar o espaço restante */
+    margin-right: 10px; /* Espaço entre o título e os outros elementos */
+    margin-bottom: 10px; /* Adiciona o espaço entre o título e a barra de pesquisa */
+}
+
+.collapse {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espaçamento entre os itens (formulários e link) */
+}
+
+.d-flex {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espaçamento entre o formulário de pesquisa, categoria e o link */
+}
+
+.input-caixa {
+    margin-right: 10px;
+}
+
+.pesquisa-button {
+    background-color: #0c6cfc;
+    color: white;
+    margin-left: 10px;
+    border: none; /* Remove a borda padrão */
+    border-radius: 8px;
+    padding: 6px 12px;
+}
+
+a {
+    margin-top: 10px;
+    text-align: center;
+}

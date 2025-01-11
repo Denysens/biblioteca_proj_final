@@ -1,0 +1,83 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: darkturquoise;
+    margin-bottom: 20px;
+}
+
+.navbar-brand {
+    color: black;             /* Define a cor do link como preta */
+    text-decoration: none;    /* Remove o sublinhado */
+    margin-right: 20px;       /* Espaçamento à direita para ficar alinhado */
+    font-size: 1.25rem;       /* Tamanho de fonte ajustado */
+    display: inline-block;    /* Faz com que o link fique alinhado com os outros itens */
+    padding: 5px 10px; 
+    right: 5px;
+}
+
+.collapse {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espaçamento entre os itens (formulários e link) */
+}
+
+.d-flex {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espaçamento entre o formulário de pesquisa, categoria e o link */
+}
+
+.input-caixa {
+    margin-right: 10px;
+}
+
+.pesquisa-button {
+    background-color: #0c6cfc;
+    color: white;
+    margin-left: 10px;
+    border: none; /* Remove a borda padrão */
+    border-radius: 8px;
+    padding: 6px 12px;
+}
+
+a {
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* ===== MENU OCULTO ===== */
+#menu_oculto {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #add1d6;
+    height: 100%;
+    width: 0;
+    transition: 0.5s;
+    z-index: 2;
+    overflow-x: hidden;
+    padding-top: 60px;
+}
+
+#menu_oculto a,
+#menu_oculto #btn_fechar{
+    color: white;
+    transition: color 0.3s ease;
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    display: block;
+}
+
+#menu_oculto a:hover,
+#menu_oculto #btn_fechar:hover{
+    color: rgb(37, 140, 209);
+}
+
+.d-flex {
+    display: flex;
+    justify-content: space-between;  /* Distribui os itens de maneira equidistante */
+    align-items: center;  /* Alinha verticalmente os itens ao centro */
+}
